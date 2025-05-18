@@ -1,40 +1,33 @@
-const cors_proxy = require('./cors-anywhere/lib/cors-anywhere');
+const express = require('express');
+const cors = require('cors');
+const { createProxyMiddleware } = require('http-proxy-middleware');
 
-// Listen on a specific host via the HOST environment variable
-const host = process.env.HOST || '0.0.0.0';
-// Listen on a specific port via the PORT environment variable
+const app = express();
 const port = process.env.PORT || 8080;
 
-// Create the CORS Anywhere server with custom configuration
-const server = cors_proxy.createServer({
-    originWhitelist: [], // Allow all origins
-    requireHeader: ['origin', 'x-requested-with'],
-    removeHeaders: [
-        'cookie',
-        'cookie2',
-        'x-request-start',
-        'x-request-id',
-        'via',
-        'connect-time',
-        'total-route-time',
-    ],
-    redirectSameOrigin: true,
-    httpProxyOptions: {
-        xfwd: false,
+// Enable CORS for all routes
+app.use(cors());
+
+// Proxy middleware configuration
+const proxyOptions = {
+    target: 'https://leetcode.com',
+    changeOrigin: true,
+    pathRewrite: {
+        '^/api/': '/', // rewrite path
     },
+    onProxyRes: function (proxyRes, req, res) {
+        proxyRes.headers['Access-Control-Allow-Origin'] = '*';
+    },
+};
+
+// Use proxy for all requests to /api
+app.use('/api', createProxyMiddleware(proxyOptions));
+
+// Health check endpoint
+app.get('/health', (req, res) => {
+    res.status(200).send('OK');
 });
 
-// Add error handling
-server.on('error', (err) => {
-    console.error('Server error:', err);
-});
-
-// Add request logging
-server.on('request', (req, res) => {
-    console.log(`Incoming request: ${req.method} ${req.url}`);
-});
-
-server.listen(port, host, function() {
-    console.log('Running CORS Anywhere server on ' + host + ':' + port);
-    console.log('Server is ready to handle requests');
+app.listen(port, () => {
+    console.log(`CORS proxy server running on port ${port}`);
 }); 
