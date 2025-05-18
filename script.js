@@ -26,6 +26,7 @@ document.addEventListener('DOMContentLoaded', () => {
             searchButton.style.display = "none";
             statsContainer.style.display = "none"; // Hide stats initially
 
+            // Use environment variable or fallback to localhost for development
             const proxyUrl = 'https://leetcode-metrics-tracker-cors-proxy.onrender.com/api/';
             const targetUrl = `graphql/`;
 
