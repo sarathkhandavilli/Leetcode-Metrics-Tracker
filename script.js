@@ -5,9 +5,11 @@ document.addEventListener('DOMContentLoaded', () => {
     const easyProgressCircle = document.querySelector('.easy-progress');
     const mediumProgressCircle = document.querySelector('.medium-progress');
     const hardProgressCircle = document.querySelector('.hard-progress');
+    const allProgressCircle = document.querySelector('.all-progress');  // New progress circle
     const easyLabel = document.getElementById('easy-label');
     const mediumLabel = document.getElementById('medium-label');
     const hardLabel = document.getElementById('hard-label');
+    const allLabel = document.getElementById('all-label');  // New label for 'All'
     const cardStatsContainer = document.querySelector('.stats-cards');
     const loadingMessage = document.querySelector('.loading-message'); 
 
@@ -26,7 +28,6 @@ document.addEventListener('DOMContentLoaded', () => {
             searchButton.style.display = "none";
             statsContainer.style.display = "none"; // Hide stats initially
 
-            // Use environment variable or fallback to localhost for development
             const proxyUrl = 'https://leetcode-metrics-tracker-cors-proxy.onrender.com/api/';
             const targetUrl = `graphql/`;
 
@@ -105,8 +106,13 @@ document.addEventListener('DOMContentLoaded', () => {
         const solvedMediumQues = parsedData.data.matchedUser.submitStats.acSubmissionNum[2].count;
         const solvedHardQues = parsedData.data.matchedUser.submitStats.acSubmissionNum[3].count;
 
+        // Update Progress for All Problems
+        updateProgress(solvedTotalQues, totalQues, allLabel, allProgressCircle);
+        // Update Progress for Easy Problems
         updateProgress(solvedEasyQues, totalEasyQues, easyLabel, easyProgressCircle);
+        // Update Progress for Medium Problems
         updateProgress(solvedMediumQues, totalMediumQues, mediumLabel, mediumProgressCircle);
+        // Update Progress for Hard Problems
         updateProgress(solvedHardQues, totalHardQues, hardLabel, hardProgressCircle);
 
         const cardData = [
