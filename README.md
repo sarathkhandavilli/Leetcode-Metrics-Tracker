@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 # LeetCode Metrics Tracker
 
 A web application that displays LeetCode user statistics and progress.
