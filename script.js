@@ -27,10 +27,8 @@ document.addEventListener('DOMContentLoaded', () => {
             statsContainer.style.display = "none"; // Hide stats initially
 
             // Use environment variable or fallback to localhost for development
-            const proxyUrl = window.location.hostname === 'localhost' 
-                ? 'http://localhost:8080/'
-                : 'https://leetcode-metrics-tracker-cors-proxy.onrender.com/';
-            const targetUrl = `https://leetcode.com/graphql/`;
+            const proxyUrl = 'https://leetcode-metrics-tracker-cors-proxy.onrender.com/api/';
+            const targetUrl = `graphql/`;
 
             const myHeaders = new Headers();
             myHeaders.append("content-type", "application/json");
