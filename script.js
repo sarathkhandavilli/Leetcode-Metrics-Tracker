@@ -5,11 +5,11 @@ document.addEventListener('DOMContentLoaded', () => {
     const easyProgressCircle = document.querySelector('.easy-progress');
     const mediumProgressCircle = document.querySelector('.medium-progress');
     const hardProgressCircle = document.querySelector('.hard-progress');
-    const allProgressCircle = document.querySelector('.all-progress');  // New progress circle
+    const totalLabel = document.getElementById('all-label');
+    const totalProgressCircle = document.querySelector('.all-progress');
     const easyLabel = document.getElementById('easy-label');
     const mediumLabel = document.getElementById('medium-label');
     const hardLabel = document.getElementById('hard-label');
-    const allLabel = document.getElementById('all-label');  // New label for 'All'
     const cardStatsContainer = document.querySelector('.stats-cards');
     const loadingMessage = document.querySelector('.loading-message'); 
 
@@ -28,6 +28,7 @@ document.addEventListener('DOMContentLoaded', () => {
             searchButton.style.display = "none";
             statsContainer.style.display = "none"; // Hide stats initially
 
+            // Use environment variable or fallback to localhost for development
             const proxyUrl = 'https://leetcode-metrics-tracker-cors-proxy.onrender.com/api/';
             const targetUrl = `graphql/`;
 
@@ -106,20 +107,16 @@ document.addEventListener('DOMContentLoaded', () => {
         const solvedMediumQues = parsedData.data.matchedUser.submitStats.acSubmissionNum[2].count;
         const solvedHardQues = parsedData.data.matchedUser.submitStats.acSubmissionNum[3].count;
 
-        // Update Progress for All Problems
-        updateProgress(solvedTotalQues, totalQues, allLabel, allProgressCircle);
-        // Update Progress for Easy Problems
+        updateProgress(solvedTotalQues, totalQues, totalLabel, totalProgressCircle);
         updateProgress(solvedEasyQues, totalEasyQues, easyLabel, easyProgressCircle);
-        // Update Progress for Medium Problems
         updateProgress(solvedMediumQues, totalMediumQues, mediumLabel, mediumProgressCircle);
-        // Update Progress for Hard Problems
         updateProgress(solvedHardQues, totalHardQues, hardLabel, hardProgressCircle);
 
         const cardData = [
-            { label: "Overall Problems Solved", value: `${solvedTotalQues}/${totalQues}` },
-            { label: "Overall Easy Problems Solved", value: `${solvedEasyQues}/${totalEasyQues}` },
-            { label: "Overall Medium Problems Solved", value: `${solvedMediumQues}/${totalMediumQues}` },
-            { label: "Overall Hard Problems Solved", value: `${solvedHardQues}/${totalHardQues}` },
+            { label: "Overall Submissions", value: parsedData.data.matchedUser.submitStats.acSubmissionNum[0].submissions },
+            { label: "Overall Easy Submissions", value: parsedData.data.matchedUser.submitStats.acSubmissionNum[1].submissions },
+            { label: "Overall Medium Submissions", value: parsedData.data.matchedUser.submitStats.acSubmissionNum[2].submissions },
+            { label: "Overall Hard Submissions", value: parsedData.data.matchedUser.submitStats.acSubmissionNum[3].submissions },
         ];
 
         cardStatsContainer.innerHTML = cardData.map(
