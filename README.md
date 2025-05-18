@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # LeetCode Metrics Tracker
 
 A web application that displays LeetCode user statistics and progress.
@@ -77,3 +78,7 @@ npm audit
 
 ## License
 MIT License 
+=======
+# Leetcode-Metrics-Tracker
+LeetMetrics is a web app that lets LeetCode users track their progress and performance across different difficulty levels by entering their username.
+>>>>>>> 68adf672532e9717d6e1163e539c9788eddf5b45
