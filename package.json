@@ -1,0 +1,13 @@
+{
+  "name": "leetcode-metrics-tracker",
+  "version": "1.0.0",
+  "description": "LeetCode Metrics Tracker with local CORS proxy",
+  "main": "cors-server.js",
+  "scripts": {
+    "start": "node cors-server.js"
+  },
+  "dependencies": {
+    "cors-anywhere": "file:./cors-anywhere",
+    "http-proxy": "^1.18.1"
+  }
+} 
