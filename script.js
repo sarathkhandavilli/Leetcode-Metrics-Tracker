@@ -76,7 +76,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         } catch (error) {
             console.error('Error:', error);
-            statsContainer.innerHTML = `<p>Error: ${error.message}</p>`;
+            statsContainer.innerHTML = `<p>No Data Found</p>`;
         } finally {
             searchButton.textContent = "Search";
             searchButton.disabled = false;
