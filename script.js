@@ -29,7 +29,7 @@ document.addEventListener('DOMContentLoaded', () => {
             // Use environment variable or fallback to localhost for development
             const proxyUrl = window.location.hostname === 'localhost' 
                 ? 'http://localhost:8080/'
-                : 'https://leetcode-metrics-cors-proxy.onrender.com/';
+                : 'https://leetcode-metrics-tracker-cors-proxy.onrender.com/';
             const targetUrl = `https://leetcode.com/graphql/`;
 
             const myHeaders = new Headers();
